@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
@@ -84,16 +84,16 @@ class MessageBar extends Component {
       durationToHide: props.durationToHide || 350,
 
       /* Offset of the View, useful if you have a navigation bar or if you want the alert be shown below another component instead of the top of the screen */
-      viewTopOffset: props.viewTopOffset || 0,
-      viewBottomOffset: props.viewBottomOffset || 0,
-      viewLeftOffset: props.viewLeftOffset || 0,
-      viewRightOffset: props.viewRightOffset || 0,
+      viewTopOffset: props.viewTopOffset || 0,
+      viewBottomOffset: props.viewBottomOffset || 0,
+      viewLeftOffset: props.viewLeftOffset || 0,
+      viewRightOffset: props.viewRightOffset || 0,
 
       /* Inset of the view, useful if you want to apply a padding at your alert content */
-      viewTopInset: props.viewTopInset || 0,
-      viewBottomInset: props.viewBottomInset || 0,
-      viewLeftInset: props.viewLeftInset || 0,
-      viewRightInset: props.viewRightInset || 0,
+      viewTopInset: props.viewTopInset || 0,
+      viewBottomInset: props.viewBottomInset || 0,
+      viewLeftInset: props.viewLeftInset || 0,
+      viewRightInset: props.viewRightInset || 0,
 
       /* Number of Lines for Title and Message */
       titleNumberOfLines: (props.titleNumberOfLines == undefined) ? 1 : props.titleNumberOfLines,
@@ -116,7 +116,7 @@ class MessageBar extends Component {
   */
   showMessageBarAlert() {
     // If an alert is already shonw or doesn't have a title or a message, do nothing
-    if (this.alertShown || (this.state.title == null && this.state.message == null)) {
+    if (this.alertShown || (this.state.title == null && this.state.message == null)) {
       return;
     }
 
@@ -175,7 +175,7 @@ class MessageBar extends Component {
   }
 
 
-  _hideMessageBarAlertComplete() {
+  _hideMessageBarAlertComplete() {
     // The alert is not shown anymore
     this.alertShown = false;
 
@@ -314,35 +314,35 @@ class MessageBar extends Component {
 
     switch (animationType) {
       case 'SlideFromTop':
-         var animationY = this.animatedValue.interpolate({
+        var animationY = this.animatedValue.interpolate({
           inputRange: [0, 1],
           outputRange: [-windowHeight, 0]
         });
         this.animationTypeTransform = [{ translateY: animationY }];
         break;
       case 'SlideFromBottom':
-         var animationY = this.animatedValue.interpolate({
+        var animationY = this.animatedValue.interpolate({
           inputRange: [0, 1],
           outputRange: [windowHeight, 0]
         });
         this.animationTypeTransform = [{ translateY: animationY }];
         break;
       case 'SlideFromLeft':
-         var animationX = this.animatedValue.interpolate({
+        var animationX = this.animatedValue.interpolate({
           inputRange: [0, 1],
           outputRange: [-windowWidth, 0]
         });
         this.animationTypeTransform = [{ translateX: animationX }];
         break;
       case 'SlideFromRight':
-         var animationX = this.animatedValue.interpolate({
+        var animationX = this.animatedValue.interpolate({
           inputRange: [0, 1],
           outputRange: [windowWidth, 0]
         });
         this.animationTypeTransform = [{ translateX: animationX }];
         break;
       default:
-         var animationY = this.animatedValue.interpolate({
+        var animationY = this.animatedValue.interpolate({
           inputRange: [0, 1],
           outputRange: [-windowHeight, 0]
         });
@@ -362,12 +362,12 @@ class MessageBar extends Component {
 
     return (
       <Animated.View style={{ transform: this.animationTypeTransform, backgroundColor: this.state.backgroundColor, borderColor: this.state.strokeColor, borderBottomWidth: 1, position: 'absolute', top: this.state.viewTopOffset, bottom: this.state.viewBottomOffset, left: this.state.viewLeftOffset, right: this.state.viewRightOffset, paddingTop: this.state.viewTopInset, paddingBottom: this.state.viewBottomInset, paddingLeft: this.state.viewLeftInset, paddingRight: this.state.viewRightInset }}>
-        <TouchableOpacity onPress={()=>{this._alertTapped()}} style={{ flex: 1 }}>
+        <TouchableOpacity onPress={() => { this._alertTapped() }} style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', padding: 10 }} >
-            { this.renderImage() }
+            {this.renderImage()}
             <View style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'center', marginLeft: 10 }} >
-              { this.renderTitle() }
-              { this.renderMessage() }
+              {this.renderTitle()}
+              {this.renderMessage()}
             </View>
           </View>
         </TouchableOpacity>
@@ -378,18 +378,24 @@ class MessageBar extends Component {
   renderImage() {
     if (this.state.avatar != null) {
       var imageSource;
-      let uri = this.state.avatar;
-      if (!!(typeof uri === 'string' && uri.match(/^https?:/))) {
-        // this is a network file
-        imageSource = { uri: this.state.avatar }
-      } else {
-        // this is a local file : require('<path/to/my/local/image.extension>')
-        imageSource = this.state.avatar
-      }
+      var avatar = this.state.avatar;
 
-      return (
-        <Image source={imageSource} style={this.state.avatarStyle} />
-      );
+      if (typeof avatar === 'string') {
+        if (!!avatar.match(/^https?:/)) {
+          // this is a network file
+          imageSource = { uri: avatar }
+        } else {
+          // this is a local file : require('<path/to/my/local/image.extension>')
+          imageSource = avatar
+        }
+
+        return (
+          <Image source={imageSource} style={this.state.avatarStyle} />
+        );
+      } else if (React.isValidElement(avatar)) {
+        // this is a react component
+        return avatar;
+      }
     }
   }
 
@@ -397,7 +403,7 @@ class MessageBar extends Component {
     if (this.state.title != null) {
       return (
         <Text numberOfLines={this.state.titleNumberOfLines} style={this.state.titleStyle}>
-          { this.state.title }
+          {this.state.title}
         </Text>
       );
     }
@@ -407,7 +413,7 @@ class MessageBar extends Component {
     if (this.state.message != null) {
       return (
         <Text numberOfLines={this.state.messageNumberOfLines} style={this.state.messageStyle}>
-          { this.state.message }
+          {this.state.message}
         </Text>
       );
     }
