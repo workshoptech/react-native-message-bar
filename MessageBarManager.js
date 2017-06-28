@@ -1,7 +1,7 @@
 /**
  * Name: Message Bar Manager
  * Description: A manager to show/hide and handle a queue of alerts
- * https://github.com/KBLNY/react-native-message-bar
+ * https://github.com/Talor-A/react-native-message-bar
  */
 "use strict";
 
