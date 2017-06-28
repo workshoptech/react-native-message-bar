@@ -35,7 +35,9 @@ class MessageBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setNewState(nextProps);
+    if (nextProps && Object.keys(nextProps).length > 0) {
+      this.setNewState(nextProps);
+    }
   }
 
   setNewState(state) {
@@ -90,10 +92,13 @@ class MessageBar extends Component {
       viewRightOffset: props.viewRightOffset || 0,
 
       /* Inset of the view, useful if you want to apply a padding at your alert content */
-      viewTopInset: props.viewTopInset || 0,
-      viewBottomInset: props.viewBottomInset || 0,
-      viewLeftInset: props.viewLeftInset || 0,
-      viewRightInset: props.viewRightInset || 0,
+      viewTopInset: props.viewTopInset || 0,
+      viewBottomInset: props.viewBottomInset || 0,
+      viewLeftInset: props.viewLeftInset || 0,
+      viewRightInset: props.viewRightInset || 0,
+      
+      /* Padding around the content, useful if you want a tiny message bar */
+      messageBarPadding: props.messageBarPadding || 10,
 
       /* Number of Lines for Title and Message */
       titleNumberOfLines: (props.titleNumberOfLines == undefined) ? 1 : props.titleNumberOfLines,
@@ -299,7 +304,7 @@ class MessageBar extends Component {
   /*
   * Set the animation transformation depending on the chosen animationType, or depending on the state's position if animationType is not overridden
   */
-  _apllyAnimationTypeTransformation() {
+  _applyAnimationTypeTransformation() {
     let position = this.state.position;
     let animationType = this.state.animationType;
 
@@ -358,12 +363,12 @@ class MessageBar extends Component {
 
   render() {
     // Set the animation transformation depending on the chosen animationType, or depending on the state's position if animationType is not overridden
-    this._apllyAnimationTypeTransformation();
+    this._applyAnimationTypeTransformation();
 
     return (
       <Animated.View style={{ transform: this.animationTypeTransform, backgroundColor: this.state.backgroundColor, borderColor: this.state.strokeColor, borderBottomWidth: 1, position: 'absolute', top: this.state.viewTopOffset, bottom: this.state.viewBottomOffset, left: this.state.viewLeftOffset, right: this.state.viewRightOffset, paddingTop: this.state.viewTopInset, paddingBottom: this.state.viewBottomInset, paddingLeft: this.state.viewLeftInset, paddingRight: this.state.viewRightInset }}>
         <TouchableOpacity onPress={() => { this._alertTapped() }} style={{ flex: 1 }}>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', padding: 10 }} >
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', padding: this.state.messageBarPadding }} >
             {this.renderImage()}
             <View style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'center', marginLeft: 10 }} >
               {this.renderTitle()}
