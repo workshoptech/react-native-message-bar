@@ -76,7 +76,7 @@ class MessageBar extends Component {
 
       /* Stylesheets */
       stylesheetInfo: props.stylesheetInfo || { backgroundColor: '#007bff', strokeColor: '#006acd' }, // Default are blue colors
-      stylesheetSuccess: props.stylesheetSuccess || { backgroundColor: 'darkgreen', strokeColor: '#b40000' }, // Default are Green colors
+      stylesheetSuccess: props.stylesheetSuccess || { backgroundColor: 'darkgreen', strokeColor: '#darkgreen' }, // Default are Green colors
       stylesheetWarning: props.stylesheetWarning || { backgroundColor: '#ff9c00', strokeColor: '#f29400' }, // Default are orange colors
       stylesheetError: props.stylesheetError || { backgroundColor: '#ff3232', strokeColor: '#FF0000' }, // Default are red colors
       stylesheetExtra: props.stylesheetExtra || { backgroundColor: '#007bff', strokeColor: '#006acd' }, // Default are blue colors, same as info
