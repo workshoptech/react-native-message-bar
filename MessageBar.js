@@ -30,6 +30,16 @@ class MessageBar extends Component {
     this.state = this.getStateByProps(props)
   }
 
+  componentDidMount() {
+    // Configure the offsets prior to recieving updated props or recieving the first alert
+    // This ensures the offsets are set properly at the outset based on the initial position.
+    // This prevents the bar from appearing  and covering half of the screen when the
+    // device is started in landscape and then rotated to portrait.
+    // This does not happen after the first alert appears, as setNewState() is called on each
+    // alert and calls _changeOffsetByPosition()
+    this._changeOffsetByPosition(this.state.position);
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps && Object.keys(nextProps).length > 0) {
       this.setNewState(nextProps)
