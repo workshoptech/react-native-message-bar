@@ -1,13 +1,14 @@
 /**
  * Name: MessageBar Test Project
  * Description: A Project to test the Message Bar Component
- * https://github.com/talor-a/react-native-message-bar
+ * https://github.com/KBLNY/react-native-message-bar
  */
 'use strict'
 
+import MessageBarManager from './MessageBarManager.js'
+
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import MessageBarManager from './MessageBarManager.js'
 
 class CustomChildComponent extends Component {
   showAlertMessage () {
@@ -41,7 +42,7 @@ class CustomChildComponent extends Component {
   }
 }
 
-export default CustomChildComponent
+module.exports = CustomChildComponent
 
 const styles = StyleSheet.create({
   container: {

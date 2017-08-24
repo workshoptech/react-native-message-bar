@@ -81,7 +81,7 @@ class MessageBar extends Component {
       }, // Default are blue colors
       stylesheetSuccess: props.stylesheetSuccess || {
         backgroundColor: 'darkgreen',
-        strokeColor: '#darkgreen'
+        strokeColor: 'darkgreen'
       }, // Default are Green colors
       stylesheetWarning: props.stylesheetWarning || {
         backgroundColor: '#ff9c00',

@@ -1,10 +1,22 @@
+/**
+ * Name: MessageBar Test Project
+ * Description: A Project to test the Message Bar Component
+ * https://github.com/talor-a/react-native-message-bar
+ */
 'use strict'
 
+var MessageBarAlert = require('./MessageBar.js')
+var MessageBarManager = require('./MessageBarManager.js')
+var CustomChildComponent = require('./CustomChildComponent.js')
+
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import MessageBarAlert from './MessageBar.js'
-import MessageBarManager from './MessageBarManager.js'
-import CustomChildComponent from './CustomChildComponent.js'
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity
+} from 'react-native'
 
 class MessageBar extends Component {
   constructor (props) {
