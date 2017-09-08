@@ -28,6 +28,7 @@ class MessageBar extends Component {
     this.timeoutHide = null
 
     this.state = this.getStateByProps(props)
+    this.defaultState = this.getStateByProps(props)
   }
 
   componentDidMount () {
@@ -58,10 +59,13 @@ class MessageBar extends Component {
   }
 
   getStateByProps (props) {
+    const def = this.defaultState || {}
     return {
       // Default values, will be overridden
       backgroundColor: '#007bff', // default value : blue
       strokeColor: '#006acd', // default value : blue
+      titleColor: '#ffffff', // default value : white
+      messageColor: '#ffffff', // default value : white
       animationTypeTransform: 'SlideFromTop', // default value
 
       /* Cusomisation of the alert: Title, Message, Icon URL, Alert alertType (error, success, warning, info), Duration for Alert keep shown */
@@ -69,86 +73,110 @@ class MessageBar extends Component {
       message: props.message,
       avatar: props.avatar,
       alertType: props.alertType || 'info',
-      duration: props.duration || 3000,
+      duration: props.duration || def.duration || 3000,
 
       /* Hide setters */
-      shouldHideAfterDelay: props.shouldHideAfterDelay == undefined
-        ? true
-        : props.shouldHideAfterDelay,
-      shouldHideOnTap: props.shouldHideOnTap == undefined
-        ? true
-        : props.shouldHideOnTap,
+      shouldHideAfterDelay:
+        props.shouldHideAfterDelay == undefined &&
+        def.shouldHideAfterDelay == undefined
+          ? true
+          : props.shouldHideAfterDelay || def.shouldHideAfterDelay,
+      shouldHideOnTap:
+        props.shouldHideOnTap == undefined &&
+        def.shouldHideOnTap == undefined
+          ? true
+          : props.shouldHideOnTap || def.shouldHideOnTap,
 
       /* Callbacks method on Alert Tapped, on Alert Show, on Alert Hide */
-      onTapped: props.onTapped,
-      onShow: props.onShow,
-      onHide: props.onHide,
+      onTapped: props.onTapped || def.onTapped,
+      onShow: props.onShow || def.onShow,
+      onHide: props.onHide || def.onHide,
 
       /* Stylesheets */
-      stylesheetInfo: props.stylesheetInfo || {
+      stylesheetInfo: props.stylesheetInfo ||
+      def.stylesheetInfo || {
         backgroundColor: '#007bff',
-        strokeColor: '#006acd'
+        strokeColor: '#006acd',
+        titleColor: '#ffffff',
+        messageColor: '#ffffff'
       }, // Default are blue colors
-      stylesheetSuccess: props.stylesheetSuccess || {
+      stylesheetSuccess: props.stylesheetSuccess ||
+      def.stylesheetSuccess || {
         backgroundColor: 'darkgreen',
-        strokeColor: 'darkgreen'
+        strokeColor: 'darkgreen',
+        titleColor: '#ffffff',
+        messageColor: '#ffffff'
       }, // Default are Green colors
-      stylesheetWarning: props.stylesheetWarning || {
+      stylesheetWarning: props.stylesheetWarning ||
+      def.stylesheetWarning || {
         backgroundColor: '#ff9c00',
-        strokeColor: '#f29400'
+        strokeColor: '#f29400',
+        titleColor: '#ffffff',
+        messageColor: '#ffffff'
       }, // Default are orange colors
-      stylesheetError: props.stylesheetError || {
+      stylesheetError: props.stylesheetError ||
+      def.stylesheetError || {
         backgroundColor: '#ff3232',
-        strokeColor: '#FF0000'
+        strokeColor: '#FF0000',
+        titleColor: '#ffffff',
+        messageColor: '#ffffff'
       }, // Default are red colors
-      stylesheetExtra: props.stylesheetExtra || {
+      stylesheetExtra: props.stylesheetExtra ||
+      def.stylesheetExtra || {
         backgroundColor: '#007bff',
-        strokeColor: '#006acd'
+        strokeColor: '#006acd',
+        titleColor: '#ffffff',
+        messageColor: '#ffffff'
       }, // Default are blue colors, same as info
 
       /* Duration of the animation */
-      durationToShow: props.durationToShow || 350,
-      durationToHide: props.durationToHide || 350,
+      durationToShow: props.durationToShow || def.durationToShow || 350,
+      durationToHide: props.durationToHide || def.durationToHide || 350,
 
       /* Offset of the View, useful if you have a navigation bar or if you want the alert be shown below another component instead of the top of the screen */
-      viewTopOffset: props.viewTopOffset || 0,
-      viewBottomOffset: props.viewBottomOffset || 0,
-      viewLeftOffset: props.viewLeftOffset || 0,
-      viewRightOffset: props.viewRightOffset || 0,
+      viewTopOffset: props.viewTopOffset || def.viewTopOffset || 0,
+      viewBottomOffset: props.viewBottomOffset || def.viewBottomOffset || 0,
+      viewLeftOffset: props.viewLeftOffset || def.viewLeftOffset || 0,
+      viewRightOffset: props.viewRightOffset || def.viewRightOffset || 0,
 
       /* Inset of the view, useful if you want to apply a padding at your alert content */
-      viewTopInset: props.viewTopInset || 0,
-      viewBottomInset: props.viewBottomInset || 0,
-      viewLeftInset: props.viewLeftInset || 0,
-      viewRightInset: props.viewRightInset || 0,
+      viewTopInset: props.viewTopInset || def.viewTopInset || 0,
+      viewBottomInset: props.viewBottomInset || def.viewBottomInset || 0,
+      viewLeftInset: props.viewLeftInset || def.viewLeftInset || 0,
+      viewRightInset: props.viewRightInset || def.viewRightInset || 0,
 
       /* Padding around the content, useful if you want a tiny message bar */
-      messageBarPadding: props.messageBarPadding || 10,
+      messageBarPadding: props.messageBarPadding || def.messageBarPadding || 10,
 
       /* Number of Lines for Title and Message */
-      titleNumberOfLines: props.titleNumberOfLines == undefined
-        ? 1
-        : props.titleNumberOfLines,
-      messageNumberOfLines: props.messageNumberOfLines == undefined
-        ? 2
-        : props.messageNumberOfLines,
+      titleNumberOfLines:
+        props.titleNumberOfLines == undefined &&
+        def.titleNumberOfLines == undefined
+          ? 1
+          : props.titleNumberOfLines || def.titleNumberOfLines,
+      messageNumberOfLines:
+        props.messageNumberOfLines == undefined &&
+        def.titleNumberOfLines == undefined
+          ? 2
+          : props.messageNumberOfLines || def.messageNumberOfLines,
 
       /* Style for the text elements and the avatar */
-      titleStyle: props.titleStyle || {
-        color: 'white',
+      titleStyle: props.titleStyle || def.titleStyle || {
         fontSize: 18,
         fontWeight: 'bold'
       },
-      messageStyle: props.messageStyle || { color: 'white', fontSize: 16 },
-      avatarStyle: props.avatarStyle || {
+      messageStyle: props.messageStyle || def.messageStyle || {
+        fontSize: 16
+      },
+      avatarStyle: props.avatarStyle || def.avatarStyle || {
         height: 40,
         width: 40,
         borderRadius: 20
       },
 
       /* Position of the alert and Animation Type the alert is shown */
-      position: props.position || 'top',
-      animationType: props.animationType
+      position: props.position || def.position || 'top',
+      animationType: props.animationType || def.animationType
     }
   }
 
@@ -277,33 +305,47 @@ class MessageBar extends Component {
 
     let backgroundColor
     let strokeColor
+    let titleColor
+    let messageColor
 
     switch (alertType) {
       case 'success':
         backgroundColor = this.state.stylesheetSuccess.backgroundColor
         strokeColor = this.state.stylesheetSuccess.strokeColor
+        titleColor = this.state.stylesheetSuccess.titleColor
+        messageColor = this.state.stylesheetSuccess.messageColor
         break
       case 'error':
         backgroundColor = this.state.stylesheetError.backgroundColor
         strokeColor = this.state.stylesheetError.strokeColor
+        titleColor = this.state.stylesheetError.titleColor
+        messageColor = this.state.stylesheetError.messageColor
         break
       case 'warning':
         backgroundColor = this.state.stylesheetWarning.backgroundColor
         strokeColor = this.state.stylesheetWarning.strokeColor
+        titleColor = this.state.stylesheetWarning.titleColor
+        messageColor = this.state.stylesheetWarning.messageColor
         break
       case 'info':
         backgroundColor = this.state.stylesheetInfo.backgroundColor
         strokeColor = this.state.stylesheetInfo.strokeColor
+        titleColor = this.state.stylesheetInfo.titleColor
+        messageColor = this.state.stylesheetInfo.messageColor
         break
       default:
         backgroundColor = this.state.stylesheetExtra.backgroundColor
         strokeColor = this.state.stylesheetExtra.strokeColor
+        titleColor = this.state.stylesheetExtra.titleColor
+        messageColor = this.state.stylesheetExtra.messageColor
         break
     }
 
     this.setState({
       backgroundColor: backgroundColor,
-      strokeColor: strokeColor
+      strokeColor: strokeColor,
+      titleColor: titleColor,
+      messageColor: messageColor
     })
   }
 
@@ -467,7 +509,7 @@ class MessageBar extends Component {
       return (
         <Text
           numberOfLines={this.state.titleNumberOfLines}
-          style={this.state.titleStyle}>
+          style={[this.state.titleStyle, {color: this.state.titleColor}]}>
           {this.state.title}
         </Text>
       )
@@ -479,7 +521,7 @@ class MessageBar extends Component {
       return (
         <Text
           numberOfLines={this.state.messageNumberOfLines}
-          style={this.state.messageStyle}>
+          style={[this.state.messageStyle, {color: this.state.messageColor}]}>
           {this.state.message}
         </Text>
       )
