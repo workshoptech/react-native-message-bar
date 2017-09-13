@@ -45,7 +45,7 @@ module.exports = {
     this.hideAlert()
 
     // Get the current alert's duration to hide
-    var durationToHide = this._currentMessageBarAlert.state.durationToHide
+    var durationToHide = this._currentMessageBarAlert.alertShown ? this._currentMessageBarAlert.state.durationToHide : 0
 
     setTimeout(() => {
       // Show the new alert if there is a new state, otherwise
