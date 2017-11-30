@@ -76,13 +76,12 @@ class MessageBar extends Component {
       duration: props.duration || def.duration || 3000,
 
       /* Hide setters */
-      shouldHideAfterDelay:
-        props.shouldHideAfterDelay == undefined &&
-        def.shouldHideAfterDelay == undefined
-          ? true
-          : props.shouldHideAfterDelay || def.shouldHideAfterDelay,
-      shouldHideOnTap:
-        props.shouldHideOnTap == undefined &&
+      get shouldHideAfterDelay () {
+        if (props.shouldHideAfterDelay != undefined) { return props.shouldHideAfterDelay }
+        if (def.shouldHideAfterDelay != undefined) { return def.shouldHideAfterDelay }
+        return true
+      },
+      shouldHideOnTap: props.shouldHideOnTap == undefined &&
         def.shouldHideOnTap == undefined
           ? true
           : props.shouldHideOnTap || def.shouldHideOnTap,
