@@ -239,7 +239,8 @@ class MessageBar extends Component {
     // Animate the alert to hide it to the top of the screen
     Animated.timing(this.animatedValue, {
       toValue: 0,
-      duration: this.state.durationToHide
+      duration: this.state.durationToHide,
+      useNativeDriver: true
     }).start(this._hideMessageBarAlertComplete())
   }
 
