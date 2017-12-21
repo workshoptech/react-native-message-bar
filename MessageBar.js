@@ -198,7 +198,8 @@ class MessageBar extends Component {
     // Auto-Hide it after a delay set in the state
     Animated.timing(this.animatedValue, {
       toValue: 1,
-      duration: this.state.durationToShow
+      duration: this.state.durationToShow,
+      useNativeDriver: true
     }).start(this._showMessageBarAlertComplete())
   }
 
