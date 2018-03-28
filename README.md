@@ -265,6 +265,7 @@ titleStyle            | Style    | { color: 'white', fontSize: 18, fontWeight: '
 messageStyle          | Style    | { color: 'white', fontSize: 16 } | Style of the message
 position              | String   | top                  | Define the position of the alert, can be `top` or `right`
 animationType         | String   | SlideFromTop         | Define the way the alert is animated on the view, can be `SlideFromTop`, `SlideFromBottom`, `SlideFromLeft` or `SlideFromRight`. If no value is specified, the animation type is selected for you based on the `position`; `SlideFromTop` if `position` is equal to `top`, `SlideFromBottom` if `position` is equal to `bottom`. The alert will then be smoothly displayed
+children              | Object   | null                 | Children components to render beneath the message bar content
 
 
 ## Contributing
