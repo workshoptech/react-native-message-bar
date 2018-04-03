@@ -523,6 +523,7 @@ class MessageBar extends Component {
     if (this.state.message != null) {
       controls.push(
         <Text
+          key="message"
           numberOfLines={this.state.messageNumberOfLines}
           style={[this.state.messageStyle, {color: this.state.messageColor}]}>
           {this.state.message}
